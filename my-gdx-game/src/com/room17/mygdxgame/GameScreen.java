@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.room17.mygdxgame.entity.Door;
 import com.room17.mygdxgame.entity.Heart;
-import com.room17.mygdxgame.entity.Player;
+import com.room17.mygdxgame.entity.Jetty;
 import com.room17.mygdxgame.generate.Mapper;
 import com.room17.mygdxgame.logic.Camera;
 import com.room17.mygdxgame.logic.UI;
@@ -29,7 +29,7 @@ public class GameScreen implements Screen {
 
 	// private float animeTime;
 
-	private Player player;
+	private Jetty player;
 	private Door door;
 	
 	private Array<Heart> myV;
@@ -72,7 +72,9 @@ public class GameScreen implements Screen {
 		
 		renderer.getSpriteBatch().begin();
 		
-		door.draw(renderer.getSpriteBatch());
+		if(camera.inView(door.box)) {
+			door.draw(renderer.getSpriteBatch());
+		}
 		
 		player.draw(renderer.getSpriteBatch());
 
@@ -105,7 +107,7 @@ public class GameScreen implements Screen {
 		myUI = new UI(renderer.getSpriteBatch());
 
 		Vector2 loc = Mapper.getNormalPos();
-		player = new Player(loc.x * Mapper.tile_width, loc.y
+		player = new Jetty(loc.x * Mapper.tile_width, loc.y
 				* Mapper.tile_height);
 		Heart.setAnimation();
 		myV = new Array<Heart>();

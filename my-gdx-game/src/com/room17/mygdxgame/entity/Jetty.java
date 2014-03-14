@@ -15,79 +15,54 @@ import com.room17.mygdxgame.generate.Generator;
 import com.room17.mygdxgame.generate.Mapper;
 import com.room17.mygdxgame.logic.Resources;
 
-public class Player implements Disposable {
+public class Jetty implements Disposable {
 
 	private Sound jumping;
 
 	private Rectangle play;
 
-	public static float HEIGHT = 64f, WIDTH = 64f;
+	private static float HEIGHT = 64f, WIDTH = 64f;
 	private float speed = 60 * 3, gravity = 60 * 2.4f;
 	private float X, Y;
-	boolean canJump, right, punching, isJumping;
+	private boolean canJump, right, isJumping;
 	private Vector2 velocity;
 	private State stat;
 
 	private Animation idle;
 	private Animation walk;
-	private Animation jump;
-	// private Animation fall;
-	// private Animation punch;
+	private Animation fly;
 
 	private float time;
 
-	private Texture pText;
-
-	private float olderX, olderY;
-
-	public Player(float a, float b) {
-		int row = 9, col = 6;
+	public Jetty(float a, float b) {
 		float rate = 0.15f;
 		X = a;
 		Y = b;
-		pText = new Texture("sprites/sumoHulk.png");
-		TextureRegion[][] myArr = TextureRegion.split(pText, pText.getWidth()
-				/ col, pText.getHeight() / row);
+		String str = "sprites/idle/s0";
+		String str2 = ".png";
 
-		TextureRegion[] myV = new TextureRegion[4];
-		for (int i = 0; i < 4; i++) {
-			BleedFix.fixBleeding(myArr[0][i]);
-			myV[i] = myArr[0][i];
+		TextureRegion[] myV = new TextureRegion[10];
+		for (int i = 1; i <= 10; i++) {
+			myV[i - 1] = new TextureRegion(new Texture(str + i + str2));
 		}
 		idle = new Animation(rate, myV);
 		idle.setPlayMode(Animation.LOOP);
 
-		myV = new TextureRegion[6];
-		for (int i = 0; i < 6; i++) {
-			BleedFix.fixBleeding(myArr[1][i]);
-			myV[i] = myArr[1][i];
+		str = "sprites/walking/s0";
+		myV = new TextureRegion[8];
+		for (int i = 1; i <= 8; i++) {
+			myV[i - 1] = new TextureRegion(new Texture(str + i + str2));
 		}
 		walk = new Animation(rate, myV);
 		walk.setPlayMode(Animation.LOOP);
 
+		str = "sprites/flying/s0";
 		myV = new TextureRegion[3];
-		for (int i = 0; i < 3; i++) {
-			BleedFix.fixBleeding(myArr[2][i]);
-			myV[i] = myArr[2][i];
+		for (int i = 1; i <= 3; i++) {
+			myV[i - 1] = new TextureRegion(new Texture(str + i + str2));
 		}
-		jump = new Animation(rate, myV);
-		jump.setPlayMode(Animation.LOOP);
-
-		// myV = new TextureRegion[3];
-		// for (int i = 0; i < 3; i++) {
-		// BleedFix.fixBleeding(myArr[3][i]);
-		// myV[i] = myArr[3][i];
-		// }
-		// fall = new Animation(rate, myV);
-		// fall.setPlayMode(Animation.LOOP);
-		//
-		// myV = new TextureRegion[3];
-		// for (int i = 0; i < 3; i++) {
-		// BleedFix.fixBleeding(myArr[6][i]);
-		// myV[i] = myArr[6][i];
-		// }
-		// punch = new Animation(0.10f, myV);
-		// punch.setPlayMode(Animation.NORMAL);
+		fly = new Animation(rate, myV);
+		fly.setPlayMode(Animation.LOOP);
 
 		right = true;
 
@@ -255,8 +230,7 @@ public class Player implements Disposable {
 			velocity.y = -speed;
 		}
 
-		olderX = X;
-		olderY = Y;
+		float olderX = X, olderY = Y;
 		boolean collisionX = false, collisionY = false;
 		float a = velocity.x, b = velocity.y;
 
@@ -316,7 +290,7 @@ public class Player implements Disposable {
 
 	@Override
 	public void dispose() {
-		pText.dispose();
+		// pText.dispose();
 	}
 
 	public void draw(Batch batch) {
@@ -332,14 +306,8 @@ public class Player implements Disposable {
 			frame = walk.getKeyFrame(time);
 			break;
 		case FLY:
-			frame = jump.getKeyFrame(time);
+			frame = fly.getKeyFrame(time);
 			break;
-		// case PUNCH:
-		// frame = punch.getKeyFrame(time);
-		// if (punch.isAnimationFinished(time)) {
-		// punching = false;
-		// }
-		// break;
 		default:
 			break;
 		}
@@ -353,12 +321,4 @@ public class Player implements Disposable {
 	public Rectangle getRect() {
 		return play;
 	}
-
-	// public float getOlderX() {
-	// return olderX;
-	// }
-
-	// public void setOlderX(float olderX) {
-	// this.olderX = olderX;
-	// }
 }

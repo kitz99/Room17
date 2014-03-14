@@ -33,12 +33,12 @@ public class Mapper {
 		TiledMapTileLayer layer1 = new TiledMapTileLayer(width, height,
 				tile_width, tile_height);
 
-		TextureRegion[] myV = new TextureRegion[4];
+		TextureRegion[] myV = new TextureRegion[3];
 
 		myV[0] = new TextureRegion(new Texture("maps/box0.png"));
 		myV[1] = new TextureRegion(new Texture("maps/box1.png"));
 		myV[2] = new TextureRegion(new Texture("maps/box2.png"));
-		myV[3] = new TextureRegion(new Texture("maps/box3.png"));
+		//myV[3] = new TextureRegion(new Texture("maps/box3.png"));
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
