@@ -21,6 +21,7 @@ public class UI implements Disposable {
 
 	private Touchpad touchpad;
 	private TouchpadStyle touchpadStyle;
+	
 	private Drawable touchBackground;
 	private Drawable touchKnob;
 

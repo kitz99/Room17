@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Mapper {
 
+	public static Array<Vector2> myDoors;
 	public static Array<Vector2> myArr;
 	public static int width = 100, height = 100, tile_width = 70,
 			tile_height = 70;
@@ -27,16 +28,17 @@ public class Mapper {
 		MapLayers layers = map.getLayers();
 
 		myArr = new Array<Vector2>();
+		myDoors = new Array<Vector2>();
 
 		TiledMapTileLayer layer1 = new TiledMapTileLayer(width, height,
 				tile_width, tile_height);
 
-		TextureRegion[] myV = new TextureRegion[4];
+		TextureRegion[] myV = new TextureRegion[3];
 
 		myV[0] = new TextureRegion(new Texture("maps/box0.png"));
 		myV[1] = new TextureRegion(new Texture("maps/box1.png"));
 		myV[2] = new TextureRegion(new Texture("maps/box2.png"));
-		myV[3] = new TextureRegion(new Texture("maps/box3.png"));
+		//myV[3] = new TextureRegion(new Texture("maps/box3.png"));
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -48,7 +50,15 @@ public class Mapper {
 
 					layer1.setCell(i, j, cell);
 				} else {
-					myArr.add(new Vector2(i, j));
+					Vector2 aux = new Vector2(i, j);
+					if (Generator.finalMap[i][j - 1] == 0
+							&& Generator.finalMap[i + 1][j - 1] == 0
+							&& Generator.finalMap[i][j + 1] == 1
+							&& Generator.finalMap[i + 1][j] == 1
+							&& Generator.finalMap[i + 1][j + 1] == 1) {
+						myDoors.add(aux);
+					}
+					myArr.add(aux);
 				}
 			}
 		}
@@ -58,10 +68,18 @@ public class Mapper {
 		return map;
 	}
 
-	public static Vector2 getPos() {
+	public static Vector2 getNormalPos() {
 		int i = Math.abs(rand.nextInt()) % myArr.size;
 		Vector2 aux = myArr.get(i);
 		myArr.removeIndex(i);
+		return aux;
+	}
+	
+	public static Vector2 getDoorPos() {
+		int i = Math.abs(rand.nextInt()) % myDoors.size;
+		Vector2 aux = myDoors.get(i);
+		myArr.removeValue(aux, false);
+		myDoors.removeIndex(i);
 		return aux;
 	}
 

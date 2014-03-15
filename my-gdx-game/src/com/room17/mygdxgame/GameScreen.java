@@ -10,8 +10,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.room17.mygdxgame.entity.Door;
 import com.room17.mygdxgame.entity.Heart;
-import com.room17.mygdxgame.entity.Player;
+import com.room17.mygdxgame.entity.Jetty;
 import com.room17.mygdxgame.generate.Mapper;
 import com.room17.mygdxgame.logic.Camera;
 import com.room17.mygdxgame.logic.UI;
@@ -28,7 +29,9 @@ public class GameScreen implements Screen {
 
 	// private float animeTime;
 
-	private Player player;
+	private Jetty player;
+	private Door door;
+	
 	private Array<Heart> myV;
 
 	@Override
@@ -65,7 +68,14 @@ public class GameScreen implements Screen {
 		renderer.setView(camera.getCam());
 		renderer.render();
 
+		door.update(d);
+		
 		renderer.getSpriteBatch().begin();
+		
+		if(camera.inView(door.box)) {
+			door.draw(renderer.getSpriteBatch());
+		}
+		
 		player.draw(renderer.getSpriteBatch());
 
 		it = myV.iterator();
@@ -96,16 +106,21 @@ public class GameScreen implements Screen {
 		renderer = new OrthogonalTiledMapRenderer(map);
 		myUI = new UI(renderer.getSpriteBatch());
 
-		Vector2 loc = Mapper.getPos();
-		player = new Player(loc.x * Mapper.tile_width, loc.y
+		Vector2 loc = Mapper.getNormalPos();
+		player = new Jetty(loc.x * Mapper.tile_width, loc.y
 				* Mapper.tile_height);
 		Heart.setAnimation();
 		myV = new Array<Heart>();
 		for (int i = 0; i < 50; i++) {
-			loc = Mapper.getPos();
+			loc = Mapper.getNormalPos();
 			myV.add(new Heart(loc.x * Mapper.tile_width, loc.y
 					* Mapper.tile_height));
 		}
+		
+		loc = Mapper.getDoorPos();
+		
+		door = new Door(loc.x * Mapper.tile_width, loc.y * Mapper.tile_height);
+		System.out.println(loc.x + " " + loc.y);
 
 		coin = Gdx.audio.newSound(Gdx.files.internal("sounds/coin.wav"));
 	}

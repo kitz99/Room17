@@ -27,18 +27,18 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.room17.pedometer.logic.StepService" />
+<!--         <service android:name="com.room17.pedometer.logic.StepService" /> -->
         
-        <receiver android:name="MyWidgetProvider" >
-            <intent-filter >
-                <action 
-                    android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
+<!--         <receiver android:name="MyWidgetProvider" > -->
+<!--             <intent-filter > -->
+<!--                 <action  -->
+<!--                     android:name="android.appwidget.action.APPWIDGET_UPDATE" /> -->
+<!--             </intent-filter> -->
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info" />
-        </receiver>
+<!--             <meta-data -->
+<!--                 android:name="android.appwidget.provider" -->
+<!--                 android:resource="@xml/widget_info" /> -->
+<!--         </receiver> -->
     </application>
 
 </manifest>

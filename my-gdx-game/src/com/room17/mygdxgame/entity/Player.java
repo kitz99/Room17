@@ -287,8 +287,8 @@ public class Player implements Disposable {
 			velocity.y = 0;
 		}
 
-		if (b > 0 && stat != State.JUMP) {
-			stat = State.JUMP;
+		if (b > 0 && stat != State.FLY) {
+			stat = State.FLY;
 			time = 0;
 		}
 		if (velocity.y == 0 && a != 0 && stat != State.WALK) {
@@ -331,7 +331,7 @@ public class Player implements Disposable {
 		case WALK:
 			frame = walk.getKeyFrame(time);
 			break;
-		case JUMP:
+		case FLY:
 			frame = jump.getKeyFrame(time);
 			break;
 		// case PUNCH:
