@@ -18,6 +18,8 @@ import com.room17.mygdxgame.logic.Camera;
 import com.room17.mygdxgame.logic.UI;
 
 public class GameScreen implements Screen {
+	
+	private MyGame parent;
 
 	private Camera camera;
 	private UI myUI;
@@ -33,6 +35,11 @@ public class GameScreen implements Screen {
 	private Door door;
 	
 	private Array<Heart> myV;
+	
+	public GameScreen(MyGame aux) {
+		//super();
+		parent = aux;
+	}
 
 	@Override
 	public void render(float delta) {
@@ -44,7 +51,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		float d = Gdx.graphics.getDeltaTime();
-		player.update(d, myUI.getX(), myUI.getY(), myUI.isPressedA());
+		player.update(d, myUI.getX(), myUI.isPressedA());
 
 		Iterator<Heart> it = myV.iterator();
 		while (it.hasNext()) {

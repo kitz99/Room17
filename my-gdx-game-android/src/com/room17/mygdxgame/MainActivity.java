@@ -38,7 +38,7 @@ public class MainActivity extends AndroidApplication {
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
 		cfg.useGL20 = true;
 
-		initialize(new MyGdxGame(), cfg);
+		initialize(new MyGame(), cfg);
 	}
 
 	public void vibeShake() {

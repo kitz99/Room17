@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Disposable;
@@ -58,7 +58,7 @@ public class UI implements Disposable {
 		textStyle = new LabelStyle();
 		textStyle.font = font;
 		textScore = new Label(yourScore + score, textStyle);
-		stepsTaken = new Label(yourSteps + InStream.getSteps(), textStyle);
+		stepsTaken = new Label(yourSteps + Resources.getSteps(), textStyle);
 		stepsTaken.setColor(Color.WHITE);
 		textScore.setColor(Color.WHITE);
 
@@ -118,7 +118,7 @@ public class UI implements Disposable {
 	}
 
 	public void setSteps() {
-		stepsTaken.setText(yourSteps + InStream.getSteps());
+		stepsTaken.setText(yourSteps + Resources.getSteps());
 	}
 
 	public void updtScore() {
