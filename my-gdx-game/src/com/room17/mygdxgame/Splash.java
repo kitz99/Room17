@@ -5,7 +5,6 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,10 +14,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.room17.mygdxgame.tween.SpriteAccessor;
 
 public class Splash implements Screen {
+	
+	private MyGame parent;
 
 	private SpriteBatch batch;
 	private Sprite splash;
 	private TweenManager tweenManager;
+	
+	public Splash(MyGame aux) {
+		parent = aux;
+	}
 
 	@Override
 	public void render(float delta) {
@@ -41,8 +46,8 @@ public class Splash implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
 		splash = new Sprite(new Texture("data/myLogo.png"));
-		splash.setX(Gdx.graphics.getWidth() / 2 - splash.getWidth() / 2);
-		splash.setY(Gdx.graphics.getHeight() / 2 - splash.getHeight() / 2);
+		splash.setX(Gdx.graphics.getWidth() / 2f - splash.getWidth() / 2f);
+		splash.setY(Gdx.graphics.getHeight() / 2f - splash.getHeight() / 2f);
 
 		Tween.set(splash, SpriteAccessor.ALPHA).target(0).start(tweenManager);
 		Tween.to(splash, SpriteAccessor.ALPHA, 0.5f).target(1).repeatYoyo(1, 2)
@@ -50,8 +55,7 @@ public class Splash implements Screen {
 
 					@Override
 					public void onEvent(int type, BaseTween<?> source) {
-						((Game) Gdx.app.getApplicationListener())
-								.setScreen(new MainMenu());
+						parent.setScreen(new MainMenu(parent));
 					}
 
 				}).start(tweenManager);

@@ -2,7 +2,7 @@ package com.room17.mygdxgame.logic;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import com.room17.mygdxgame.entity.Player;
+import com.room17.mygdxgame.entity.Jetty;
 import com.room17.mygdxgame.generate.Mapper;
 
 public class Camera {
@@ -23,7 +23,7 @@ public class Camera {
 	}
 
 	public void updatePos(float a, float b) {
-		float x = a + Player.WIDTH / 2, y = b + Player.HEIGHT / 2;
+		float x = a + Jetty.WIDTH / 2, y = b + Jetty.HEIGHT / 2;
 		if (x < halfW) {
 			x = halfW;
 		} else if (x > totalW) {

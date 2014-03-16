@@ -31,6 +31,7 @@ public class Door {
 
 		TextureRegion[][] myArr = TextureRegion.split(new Texture(
 				"sprites/door.png"), 64, 70);
+		
 		idle = new Animation(0.15f, myArr[0]);
 		idle.setPlayMode(Animation.LOOP);
 

@@ -3,9 +3,9 @@ package com.room17.mygdxgame.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,12 +16,14 @@ import com.room17.mygdxgame.generate.Mapper;
 import com.room17.mygdxgame.logic.Resources;
 
 public class Jetty implements Disposable {
+	
+	private TextureAtlas atlas;
 
 	private Sound jumping;
 
 	private Rectangle play;
 
-	private static float HEIGHT = 64f, WIDTH = 64f;
+	public static float HEIGHT =  64f, WIDTH = 64f;
 	private float speed = 60 * 3, gravity = 60 * 2.4f;
 	private float X, Y;
 	private boolean canJump, right, isJumping;
@@ -38,28 +40,30 @@ public class Jetty implements Disposable {
 		float rate = 0.15f;
 		X = a;
 		Y = b;
-		String str = "sprites/idle/s0";
-		String str2 = ".png";
+		
+		atlas = new TextureAtlas("sprites/jetty/Jetty.txt");
+		
+		String str = "idle";
 
 		TextureRegion[] myV = new TextureRegion[10];
 		for (int i = 1; i <= 10; i++) {
-			myV[i - 1] = new TextureRegion(new Texture(str + i + str2));
+			myV[i - 1] = atlas.findRegion(str + i);
 		}
 		idle = new Animation(rate, myV);
 		idle.setPlayMode(Animation.LOOP);
 
-		str = "sprites/walking/s0";
+		str = "walk";
 		myV = new TextureRegion[8];
 		for (int i = 1; i <= 8; i++) {
-			myV[i - 1] = new TextureRegion(new Texture(str + i + str2));
+			myV[i - 1] = atlas.findRegion(str + i);
 		}
 		walk = new Animation(rate, myV);
 		walk.setPlayMode(Animation.LOOP);
 
-		str = "sprites/flying/s0";
+		str = "fly";
 		myV = new TextureRegion[3];
 		for (int i = 1; i <= 3; i++) {
-			myV[i - 1] = new TextureRegion(new Texture(str + i + str2));
+			myV[i - 1] = atlas.findRegion(str + i);
 		}
 		fly = new Animation(rate, myV);
 		fly.setPlayMode(Animation.LOOP);
@@ -201,7 +205,7 @@ public class Jetty implements Disposable {
 		return false;
 	}
 
-	public void update(float delta, float x, float y, boolean aPress) {
+	public void update(float delta, float x, boolean aPress) {
 		time += delta;
 		velocity.y -= gravity * delta;
 
@@ -291,6 +295,7 @@ public class Jetty implements Disposable {
 	@Override
 	public void dispose() {
 		// pText.dispose();
+		atlas.dispose();
 	}
 
 	public void draw(Batch batch) {
