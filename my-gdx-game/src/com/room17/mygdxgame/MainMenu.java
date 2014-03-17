@@ -1,6 +1,5 @@
 package com.room17.mygdxgame;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -15,6 +14,9 @@ public class MainMenu implements Screen {
 
 	// private Texture bck;
 	// private Sprite background;
+	
+	private MyGame parent;
+	
 	private Stage stage;
 	private Skin skinner;
 	private Button playButton;
@@ -22,6 +24,10 @@ public class MainMenu implements Screen {
 	private boolean pressedStart;
 
 	private Music playing;
+	
+	public MainMenu(MyGame aux) {
+		parent = aux;
+	}
 
 	@Override
 	public void render(float delta) {
@@ -39,8 +45,7 @@ public class MainMenu implements Screen {
 		stage.draw();
 
 		if (pressedStart) {
-			((Game) Gdx.app.getApplicationListener())
-					.setScreen(new GameScreen());
+			parent.setScreen(new GameScreen(parent));
 		}
 		pressedStart = playButton.isPressed();
 

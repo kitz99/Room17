@@ -10,4 +10,17 @@ public class Resources {
 			return new Rectangle();
 		}
 	};
+	
+	private static int nrSteps = 0;
+
+	public// synchronized
+	static void addSteps(int aux) {
+		nrSteps += aux;
+	}
+
+	public// synchronized
+	static int getSteps() {
+		return nrSteps;
+	}
+	
 }
